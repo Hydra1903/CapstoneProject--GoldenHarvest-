@@ -1284,7 +1284,7 @@ MonoBehaviour:
     brushes:
     - name: SM_Generic_Tree_02
       settings:
-        brushRadius: 17.2
+        brushRadius: 6.5
         brushSpacing: 2.15
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
