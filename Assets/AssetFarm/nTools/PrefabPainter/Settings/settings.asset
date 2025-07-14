@@ -17,7 +17,7 @@ MonoBehaviour:
     brushes:
     - name: SM_Generic_Grass_Patch_01
       settings:
-        brushRadius: 7
+        brushRadius: 2.1
         brushSpacing: 1.53
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
@@ -3496,7 +3496,7 @@ MonoBehaviour:
     brushes:
     - name: SM_Generic_Small_Rocks_01
       settings:
-        brushRadius: 17.5
+        brushRadius: 1.5
         brushSpacing: 4.09
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
@@ -5396,7 +5396,7 @@ MonoBehaviour:
     levelsInWhite: 255
     levelsOutBlack: 0
     levelsOutWhite: 255
-  activeTab: 1
+  activeTab: 2
   paintOnSelected: 0
   paintLayers:
     serializedVersion: 2
