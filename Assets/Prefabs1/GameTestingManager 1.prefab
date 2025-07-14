@@ -10,9 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6499733740094653025}
   - component: {fileID: 2879531543684070627}
-  - component: {fileID: 8875770910552121872}
   m_Layer: 0
-  m_Name: GameTestingManager
+  m_Name: GameTestingManager 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,16 +50,3 @@ MonoBehaviour:
   thirdPersonCamObj: {fileID: 0}
   Skinny: {fileID: 0}
   currentState: 0
---- !u!114 &8875770910552121872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1567070233573142802}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1a5da81718f63a459ace669ad085978, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraPosition: {fileID: 0}

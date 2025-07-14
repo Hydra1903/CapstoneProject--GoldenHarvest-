@@ -13,7 +13,6 @@ public class AIWalking : AnimalMoveBaseState
             manager.SwitchState(manager.idle);
             return;
         }
-
         Transform point = manager.wanderPoints[Random.Range(0, manager.wanderPoints.Length)];
         manager.agent.isStopped = false;
         manager.agent.SetDestination(point.position);
