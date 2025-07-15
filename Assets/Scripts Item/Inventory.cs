@@ -5,7 +5,6 @@ public class Inventory : MonoBehaviour
 {
     public int maxSlots = 32;
     public List<InventoryItem> items = new List<InventoryItem>();
-
     public bool AddItem(ItemData data, int amount)
     {
         foreach (var item in items)
