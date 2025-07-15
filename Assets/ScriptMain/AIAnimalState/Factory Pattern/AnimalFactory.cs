@@ -29,7 +29,6 @@ public static class AnimalFactory
             SimpleAI ai = obj.GetComponent<SimpleAI>();
             if (ai != null)
             {
-                // T?m t?t c? Transform có tag là "WanderPoint"
                 GameObject[] pointObjects = GameObject.FindGameObjectsWithTag("WanderPoint");
                 ai.wanderPoints = pointObjects.Select(p => p.transform).ToArray();
             }
