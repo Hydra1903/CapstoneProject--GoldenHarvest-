@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - WanderPoint
+  - Sheep
+  - Goat
+  - WanderPoint2
   layers:
   - Default
   - TransparentFX

@@ -40,7 +40,7 @@ public class AIIdile : AnimalMoveBaseState
     }
     private IEnumerator WaitAndDecide(SimpleAI manager)
     {
-        yield return new WaitForSeconds(Random.Range(8f, 14f));//thoi gian de random 
+        yield return new WaitForSeconds(Random.Range(6f, 10f));//thoi gian de random 
         randomResult = Random.Range(0, 5);// random tu 0 - 4 (0,1,2,3)
         hasDecided = true;
     }

@@ -1,7 +1,7 @@
 using System.Linq;
 using UnityEngine;
 
-public enum AnimalType { None, WhiteSheep, WhiteGoat }
+public enum AnimalType { None, WhiteSheep, CreamSheep, BlackSheep, BlackGoat, WhiteGoat }
 
 public static class AnimalFactory
 {
@@ -11,11 +11,20 @@ public static class AnimalFactory
 
         switch (type)
         {
+            case AnimalType.BlackGoat:
+                prefab = Resources.Load<GameObject>("Prefabs/BlackGoat");
+                break;
             case AnimalType.WhiteGoat:
-                prefab = Resources.Load<GameObject>("Prefabs/WhiteSheep");
+                prefab = Resources.Load<GameObject>("Prefabs/WhiteGoat");
                 break;
             case AnimalType.WhiteSheep:
-                prefab = Resources.Load<GameObject>("Prefabs/WhiteGoat");
+                prefab = Resources.Load<GameObject>("Prefabs/WhiteSheep");
+                break;
+            case AnimalType.BlackSheep:
+                prefab = Resources.Load<GameObject>("Prefabs/BlackSheep");
+                break;
+            case AnimalType.CreamSheep:
+                prefab = Resources.Load<GameObject>("Prefabs/CreamSheep");
                 break;
             default:
                 Debug.LogWarning("Invalid or unselected animal type.");
@@ -32,6 +41,11 @@ public static class AnimalFactory
                 GameObject[] pointObjects = GameObject.FindGameObjectsWithTag("WanderPoint");
                 ai.wanderPoints = pointObjects.Select(p => p.transform).ToArray();
             }
+            //else if (ai != null)
+            //{
+            //    GameObject[] pointObjects = GameObject.FindGameObjectsWithTag("WanderPoint2");
+            //    ai.wanderPoints = pointObjects.Select(p => p.transform).ToArray();
+            //}
         }
 
         return null;

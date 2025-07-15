@@ -7,14 +7,20 @@ public class LiveStockSeller : MonoBehaviour
     public Button yesButton;
     public Button noButton;
     public GameObject buyCanvas;
-    
-    public Button WhiteSheepButton;
-    public Button WhiteGoatButton;
-    
-    public Transform spawnPoint;
 
     private bool playerInRange = false;
     private AnimalType selectedType = AnimalType.None;
+
+    [Header("UI Button Access")]
+    public Button WhiteSheepButton;
+    public Button BlackSheepButton;
+    public Button CreamSheepButton;
+    public Button WhiteGoatButton;
+    public Button BlackGoatButton;
+
+    [Header("Spawn Point And Moving Random Point")]
+    public Transform spawnPoint;
+    public Transform spawnPoint2;
 
     private void Start()
     {
@@ -25,7 +31,10 @@ public class LiveStockSeller : MonoBehaviour
         noButton.onClick.AddListener(OnCancelPurchase);
 
         WhiteGoatButton.onClick.AddListener(() => SelectAnimal(AnimalType.WhiteGoat));
+        BlackGoatButton.onClick.AddListener(() => SelectAnimal(AnimalType.BlackGoat));
         WhiteSheepButton.onClick.AddListener(() => SelectAnimal(AnimalType.WhiteSheep));
+        CreamSheepButton.onClick.AddListener(() => SelectAnimal(AnimalType.CreamSheep));
+        BlackSheepButton.onClick.AddListener(() => SelectAnimal(AnimalType.BlackSheep));
     }
 
     void SelectAnimal(AnimalType type)
@@ -49,19 +58,20 @@ public class LiveStockSeller : MonoBehaviour
     void OnCancelPurchase()
     {
         confirmPanel.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
     void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.B))
+        if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
             buyCanvas.gameObject.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
     }
+    void OnChoose()
+    {
 
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
