@@ -20,7 +20,7 @@ public class Running : MovementBaseState
        
         else
         {
-            Debug.Log("Khong co trang thai");
+          //  Debug.Log("Khong co trang thai");
         }
     }
     public override void ExitState(PlayerController movement, MovementBaseState state)

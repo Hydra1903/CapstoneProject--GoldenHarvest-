@@ -3,10 +3,9 @@ using UnityEngine.UI;
 
 public class LiveStockSeller : MonoBehaviour
 {
-    public GameObject confirmPanel;
-    public Button yesButton;
-    public Button noButton;
     public GameObject buyCanvas;
+    public GameObject confirmPanel;
+    public GameObject selectPenPanel;
 
     private bool playerInRange = false;
     private AnimalType selectedType = AnimalType.None;
@@ -17,44 +16,87 @@ public class LiveStockSeller : MonoBehaviour
     public Button CreamSheepButton;
     public Button WhiteGoatButton;
     public Button BlackGoatButton;
+    public Button yesButton;
+    public Button noButton;
+    public Button pen2Button;
+    public Button pen1Button;
 
     [Header("Spawn Point And Moving Random Point")]
-    public Transform spawnPoint;
-    public Transform spawnPoint2;
+    public AnimalPen pen1;
+    public AnimalPen pen2;
 
     private void Start()
     {
         buyCanvas.gameObject.SetActive(false);
         confirmPanel.SetActive(false);
+        selectPenPanel.SetActive(false);
 
-        yesButton.onClick.AddListener(OnConfirmPurchase);
+        yesButton.onClick.AddListener(() => ShowSelectPen());
         noButton.onClick.AddListener(OnCancelPurchase);
 
-        WhiteGoatButton.onClick.AddListener(() => SelectAnimal(AnimalType.WhiteGoat));
-        BlackGoatButton.onClick.AddListener(() => SelectAnimal(AnimalType.BlackGoat));
-        WhiteSheepButton.onClick.AddListener(() => SelectAnimal(AnimalType.WhiteSheep));
-        CreamSheepButton.onClick.AddListener(() => SelectAnimal(AnimalType.CreamSheep));
-        BlackSheepButton.onClick.AddListener(() => SelectAnimal(AnimalType.BlackSheep));
+        pen1Button.onClick.AddListener(() => SpawnAnimalInPen(pen1));
+        pen2Button.onClick.AddListener(() => SpawnAnimalInPen(pen2));
+
+        WhiteGoatButton.onClick.AddListener(() => ShowConfirm(AnimalType.WhiteGoat));
+        BlackGoatButton.onClick.AddListener(() => ShowConfirm(AnimalType.BlackGoat));
+        WhiteSheepButton.onClick.AddListener(() => ShowConfirm(AnimalType.WhiteSheep));
+        CreamSheepButton.onClick.AddListener(() => ShowConfirm(AnimalType.CreamSheep));
+        BlackSheepButton.onClick.AddListener(() => ShowConfirm(AnimalType.BlackSheep));
     }
 
-    void SelectAnimal(AnimalType type)
+    void ShowConfirm(AnimalType type)
     {
         selectedType = type;
         confirmPanel.SetActive(true);
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
-    void OnConfirmPurchase()
+
+    void ShowSelectPen()
     {
-        if (selectedType != AnimalType.None)
-        {
-            AnimalFactory.CreateAnimal(selectedType, spawnPoint.position);
-        }
         confirmPanel.SetActive(false);
-        buyCanvas.gameObject.SetActive(false);
+        selectPenPanel.SetActive(true);
+    }
+
+    void SpawnAnimalInPen(AnimalPen pen)
+    {
+        if (!pen.CanSpawnMore())
+        {
+            Debug.LogWarning("Pen Full Cant Spawn");
+            return;
+        }
+
+        GameObject prefab = AnimalFactory.GetPrefab(selectedType);
+        if (prefab == null)
+        {
+            Debug.LogError("Cant Find!");
+            return;
+        }
+
+        Transform spawnPoint = pen.GetRandomSpawnPoint();
+        GameObject obj = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
+
+        SimpleAI ai = obj.GetComponent<SimpleAI>();
+        if (ai != null)
+        {
+            ai.wanderPoints = pen.wanderPoints;
+        }
+
+        pen.RegisterAnimal(obj); //Sign New Animal in Pen
+
+        selectPenPanel.SetActive(false);
+        buyCanvas.SetActive(false);
         selectedType = AnimalType.None;
     }
 
+    void ResetUI()
+    {
+        buyCanvas.gameObject.SetActive(false);
+        confirmPanel.SetActive(false);
+        selectPenPanel.SetActive(false);
+        selectedType = AnimalType.None;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
     void OnCancelPurchase()
     {
         confirmPanel.SetActive(false);
@@ -63,15 +105,21 @@ public class LiveStockSeller : MonoBehaviour
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
-            buyCanvas.gameObject.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            bool isActive = buyCanvas.activeSelf;
+            buyCanvas.SetActive(!isActive);
+
+            if (!isActive)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                ResetUI();
+            }
         }
     }
-    void OnChoose()
-    {
 
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

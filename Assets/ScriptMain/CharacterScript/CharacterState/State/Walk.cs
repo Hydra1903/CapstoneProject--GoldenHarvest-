@@ -17,12 +17,6 @@ public class Walk : MovementBaseState
         {
             ExitState(movement, movement.RunState);
         }
-       
-        else
-        {
-            Debug.Log("Khong co trang thai");
-        }
-        
     }
     public override void ExitState(PlayerController movement, MovementBaseState state)
     {
